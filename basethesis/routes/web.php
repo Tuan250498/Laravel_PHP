@@ -14,4 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
-include 'route_admin.php';
+
+include ('route_admin.php');
