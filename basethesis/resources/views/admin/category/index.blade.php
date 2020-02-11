@@ -15,43 +15,64 @@
         <div class="box">
             <div class="box-header with-border">
                 <div class="box-header">
-                    <h3 class="box-title"><a class="btn btn-primary" href=" {{route('admin.category.create')}}">Thêm mới</a></h3>
+                    <h3 class="box-title"><a class="btn btn-primary" href=" {{route('admin.category.create')}}">Thêm
+                            mới</a></h3>
                 </div>
-            <div class="box-body">
-                <div class="col-md-12">
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <th style="width: 10px">#</th>
-                                    <th>Name</th>
-                                    <th>Avatar</th>
-                                    <th>status</th>
-                                    <th>Hot</th>
-                                    <th>Action</th>
-                                </tr>
-                                <tr>
-                                    <td>1.</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>Update software</td>
-                                    <td>
-                                        <div class="progress progress-xs">
-                                            <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                        </div>
-                                    </td>
-                                    <td><span class="badge bg-red">55%</span></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="box-body">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <th style="width: 10px">#</th>
+                                <th>Name</th>
+                                <th>Avatar</th>
+                                <th>status</th>
+                                <th>Hot</th>
+                                <th>Time</th>
+                                <th>Action</th>
+                            </tr>
+                            @if($categories)
+                                @foreach($categories as $category)
+                                    <tr>
+                                        <td>{{$loop->iteration}}</td>
+                                        <td>{{$category->c_name}}</td>
+                                        <td>
+                                            <img src="https://previewcode.net/images/no-image.jpg" alt=""
+                                                 style="width: 80px; height: 80px">
+                                        </td>
+                                        <td>
+                                            @if($category->c_status == 1)
+                                                <a href="{{route('admin.category.actice',$category->id )}}" class="label label-info">Show</a>
+                                            @else
+                                                <a href="{{route('admin.category.actice', $category->id)}}" class="label label-default">Hide</a>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($category->c_hot == 1)
+                                                <a href="{{route('admin.category.hot',$category->id )}}" class="label label-info">Hot</a>
+                                            @else
+                                                <a href="{{route('admin.category.hot',$category->id )}}" class="label label-default">None</a>
+                                            @endif
+                                        </td>
+                                        <td>{{$category->created_at}}</td>
+                                        <td>
+                                            <a href="{{route('admin.category.update', $category->id)}}" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Edit</a>
+                                            <a href="{{route('admin.category.delete',$category->id)}}" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
+                            </tbody>
+                        </table>
                     </div>
-            <!-- /.box-body -->
-            <div class="box-footer">
-                Footer
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer">
+                    {!! $categories->links()!!}
+                </div>
+                <!-- /.box-footer-->
             </div>
-            <!-- /.box-footer-->
-        </div>
-        <!-- /.box -->
+            <!-- /.box -->
     </section>
     <!-- /.content -->
 @stop
